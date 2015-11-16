@@ -1,0 +1,241 @@
+///////////////////////////////////////////////////////////////////////////////
+//	File Name:		CSpeakCommands.cpp
+//
+//	Description:	class implementation of the speak related classes
+//				part of the command state machine
+//	Declared in this file:
+//		none
+//
+//	Implemented in this file:
+//		CSpkSpeak::CSpkSpeak(int a_cmdID, AMrcpResource* a_command,SPEAK_STRUCT* a_speakParams)
+//		CSpkSpeak::~CSpkSpeak()
+//		CSpkSpeak::Execute()
+//		CSpkStop::CSpkStop(int a_cmdID, AMrcpResource* a_command)
+//		CSpkStop::~CSpkStop()
+//		CSpkStop::Execute()
+//		CSpkPause::CSpkPause(int a_cmdID, AMrcpResource* a_command)
+//		CSpkPause::~CSpkPause()
+//		CSpkPause::Execute()
+//		CSpkResume::CSpkResume(int a_cmdID, AMrcpResource* a_command)
+//		CSpkResume::~CSpkResume()
+//		CSpkResume::Execute()
+//		CSpkBargeIn::CSpkBargeIn(int a_cmdID, AMrcpResource* a_command)
+//		CSpkBargeIn::~CSpkBargeIn()
+//		CSpkBargeIn::Execute()
+///////////////////////////////////////////////////////////////////////////////
+//	Revisions:
+//	Date		Initial 	Description
+//	----		------- 	-----------
+//
+///////////////////////////////////////////////////////////////////////////////
+#include "CSpeakCommands.h"
+#include "AMrcpResource.h"
+
+
+namespace MrcpV2RefLib
+{
+////////////////////////////////////////////////////////////////////////// 
+//
+// Description - Constructor
+// Input - command id
+//         resource pointer
+//		   speak parameters structure
+// Output - None
+//          
+///////////////////////////////////////////////////////////////////////////
+CSpkSpeak::CSpkSpeak(int a_cmdID, AMrcpResource* a_command,SPEAK_STRUCT* a_speakParams)
+	: m_cmdID(a_cmdID)
+	, m_command(a_command)
+	, m_killOnBargeIn(a_speakParams->killOnBargeIn)
+	//, m_voiceName(a_speakParams->voiceName)
+	, m_speechLanguage(a_speakParams->speechLanguage)
+	, m_contentType(a_speakParams->contentType)
+	, m_content(a_speakParams->content)
+{
+}
+
+////////////////////////////////////////////////////////////////////////// 
+//
+// Description - Destructor 
+// Input - None
+//         
+// Output - None
+//          
+///////////////////////////////////////////////////////////////////////////
+CSpkSpeak::~CSpkSpeak()
+{
+
+}
+////////////////////////////////////////////////////////////////////////// 
+//
+// Description - Execute
+// Input - None
+//         
+// Output - None
+//      code that is called as task processor calls request from queue
+///////////////////////////////////////////////////////////////////////////
+void CSpkSpeak::Execute()
+{
+	m_command->Speak(*m_command, *this);
+}
+////////////////////////////////////////////////////////////////////////// 
+//
+// Description - Constructor
+// Input - command ID
+//         resource pointer
+// Output - None
+//          
+///////////////////////////////////////////////////////////////////////////
+CSpkStop::CSpkStop(int a_cmdID, AMrcpResource* a_command)
+	: m_cmdID(a_cmdID)
+	, m_command(a_command)
+{
+}
+
+////////////////////////////////////////////////////////////////////////// 
+//
+// Description - Destructor 
+// Input - None
+//         
+// Output - None
+//          
+///////////////////////////////////////////////////////////////////////////
+CSpkStop::~CSpkStop()
+{
+
+}
+
+////////////////////////////////////////////////////////////////////////// 
+//
+// Description - Execute 
+// Input - None
+//         
+// Output -
+//       code that is called as task processor calls request from queue                     
+///////////////////////////////////////////////////////////////////////////
+void CSpkStop::Execute()
+{
+	m_command->StopSpeak(*m_command, *this);
+}
+	
+////////////////////////////////////////////////////////////////////////// 
+//
+// Description - Constructor
+// Input - Command ID
+//         resource pointer
+// Output - None
+//          
+///////////////////////////////////////////////////////////////////////////
+CSpkPause::CSpkPause(int a_cmdID, AMrcpResource* a_command)
+	: m_cmdID(a_cmdID)
+	, m_command(a_command)
+{
+}
+
+////////////////////////////////////////////////////////////////////////// 
+//
+// Description - Destructor 
+// Input - None
+//         
+// Output - None
+//          
+///////////////////////////////////////////////////////////////////////////
+CSpkPause::~CSpkPause()
+{
+
+}
+
+////////////////////////////////////////////////////////////////////////// 
+//
+// Description - Execute 
+// Input - None
+//         
+// Output - None
+//     code that is called as task processor calls request from queue                     
+///////////////////////////////////////////////////////////////////////////
+void CSpkPause::Execute()
+{
+	m_command->Pause(*m_command, *this);
+}
+
+////////////////////////////////////////////////////////////////////////// 
+//
+// Description - Constructor
+// Input - Command ID
+//         Resource pointer
+// Output - None
+//          
+///////////////////////////////////////////////////////////////////////////
+CSpkResume::CSpkResume(int a_cmdID, AMrcpResource* a_command)
+	: m_cmdID(a_cmdID)
+	, m_command(a_command)
+{
+}
+
+////////////////////////////////////////////////////////////////////////// 
+//
+// Description - Destructor 
+// Input - None
+//         
+// Output - requestId
+//          
+///////////////////////////////////////////////////////////////////////////
+CSpkResume::~CSpkResume()
+{
+
+}
+
+////////////////////////////////////////////////////////////////////////// 
+//
+// Description - Execute 
+// Input - None
+//         
+// Output - None
+// code that is called as task processor calls request from queue                        
+///////////////////////////////////////////////////////////////////////////
+void CSpkResume::Execute()
+{
+	m_command->Resume(*m_command, *this);
+}
+	
+////////////////////////////////////////////////////////////////////////// 
+//
+// Description - Constructor
+// Input - Command ID
+//         resource pointer
+// Output - None
+//          
+///////////////////////////////////////////////////////////////////////////
+CSpkBargeIn::CSpkBargeIn(int a_cmdID, AMrcpResource* a_command)
+	: m_cmdID(a_cmdID)
+	, m_command(a_command)
+{
+}
+
+////////////////////////////////////////////////////////////////////////// 
+//
+// Description - Destructor 
+// Input - None
+//         
+// Output - None
+//          
+///////////////////////////////////////////////////////////////////////////
+CSpkBargeIn::~CSpkBargeIn()
+{
+
+}
+
+////////////////////////////////////////////////////////////////////////// 
+//
+// Description - Execute 
+// Input - None
+//         
+// Output - None
+//  code that is called as task processor calls request from queue                        
+///////////////////////////////////////////////////////////////////////////
+void CSpkBargeIn::Execute()
+{
+	m_command->BargeIn(*m_command, *this);
+}
+
+}//end namespace

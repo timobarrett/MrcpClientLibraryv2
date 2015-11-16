@@ -1,0 +1,67 @@
+///////////////////////////////////////////////////////////////////////////////
+//	File Name:		CMrcpSendCommand.cpp
+//
+//	Description:	CMrcpSendCommand class implementation
+//				  Queues commands to send packets
+//	Declared in this file:
+//		none
+//
+//	Implemented in this file:
+//		CMrcpSendCommand::CMrcpSendCommand(AMrcpSignaling* a_signaling)
+//		CMrcpSendCommand::~CMrcpSendCommand()
+//		void CMrcpSendCommand::Execute()
+//
+///////////////////////////////////////////////////////////////////////////////
+//	Revisions:
+//	Date		Initial 	Description
+//	----		------- 	-----------
+//
+///////////////////////////////////////////////////////////////////////////////
+
+#include "CMrcpSendCommand.h"
+#include "AMrcpSignaling.h"
+
+
+namespace MrcpV2RefLib
+{
+////////////////////////////////////////////////////////////////////////// 
+//
+// Description - Constructor
+// Input - pointer to signal object
+//         
+// Output - None
+//          
+///////////////////////////////////////////////////////////////////////////
+CMrcpSendCommand::CMrcpSendCommand(AMrcpSignaling* a_signalObj)
+	:  MrcpTasks( a_signalObj)
+{
+	m_messageBuffer.erase();
+	m_resourceType.erase();
+}
+////////////////////////////////////////////////////////////////////////// 
+//
+// Description - Destructor
+// Input - None
+//         
+// Output - 
+//          
+///////////////////////////////////////////////////////////////////////////
+CMrcpSendCommand::~CMrcpSendCommand()
+{
+
+}
+////////////////////////////////////////////////////////////////////////// 
+//
+// Description - Execute
+// Input - None
+//         
+// Output - 
+//         calls PrimSendCommand to ad command to queue fro processing 
+///////////////////////////////////////////////////////////////////////////
+void CMrcpSendCommand::Execute()
+{
+	m_signalObj->PrimSendCommand( MessageBuffer(),ResourceType());
+}
+
+} //end namespace
+

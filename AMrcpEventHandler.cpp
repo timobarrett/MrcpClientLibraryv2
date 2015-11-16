@@ -1,0 +1,67 @@
+///////////////////////////////////////////////////////////////////////////////
+//
+//
+///////////////////////////////////////////////////////////////////////////////
+//	File Name:		AMrcpEventHandler.cpp
+//
+//	Description:	class implementation
+//
+//	Declared in this file:
+//		none
+//
+//	Implemented in this file:
+//    AMrcpEventHandler::AMrcpEventHandler()
+//    AMrcpEventHandler::~AMrcpEventHandler()
+//    AMrcpEventHandler::PostEvent(CMrcpEvent* a_event)
+///////////////////////////////////////////////////////////////////////////////
+//	Revisions:
+//	Date		Initial 	Description
+//	----		------- 	-----------
+//	6/21/06 	TMB 		Initial Version
+//  4/1/07      TMB         Clean up 
+///////////////////////////////////////////////////////////////////////////////
+
+#include "AMrcpEventHandler.h"
+#include "CMrcpEvent.h"
+#include "CMrcpTaskProcessor.h"
+
+namespace MrcpV2RefLib
+{
+////////////////////////////////////////////////////////////////////////// 
+//
+// Description - Constructor
+// Input - None
+//         
+// Output - None
+//          
+///////////////////////////////////////////////////////////////////////////
+ AMrcpEventHandler::AMrcpEventHandler()
+ {
+	 m_mrcpTaskProcessor = MrcpV2RefLib::CMrcpTaskProcessor::Instance("TASK");
+ }
+ ////////////////////////////////////////////////////////////////////////// 
+//
+// Description - Destructor
+// Input - None
+//         
+// Output - None
+//          
+///////////////////////////////////////////////////////////////////////////
+ AMrcpEventHandler::~AMrcpEventHandler()
+ {
+ }
+ ////////////////////////////////////////////////////////////////////////// 
+//
+// Description - PostEvent
+// Input - pointer to mrcp event
+//         
+// Output - queues task to task processors queue
+//          This method queues the CMrcpEvent object received into the
+//          task queue for processing
+///////////////////////////////////////////////////////////////////////////
+int AMrcpEventHandler::PostEvent(CMrcpEvent* a_event)
+ {
+	return m_mrcpTaskProcessor->QueueTask(a_event);
+ }
+}//end namespace
+

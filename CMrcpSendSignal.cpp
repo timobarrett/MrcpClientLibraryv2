@@ -1,0 +1,67 @@
+
+///////////////////////////////////////////////////////////////////////////////
+//	File Name:		CMrcpSendSignal.cpp
+//
+//	Description:	CMrcpSendSignal class implementation
+//				  Queues commands to send signal packets
+//	Declared in this file:
+//		none
+//
+//	Implemented in this file:
+//		CMrcpSendSignal::CMrcpSendSignal(AMrcpSignaling* a_signaling)
+//		CMrcpSendSignal::~CMrcpSendSignal()
+//		void CMrcpSendSignal::Execute()
+//
+///////////////////////////////////////////////////////////////////////////////
+//	Revisions:
+//	Date		Initial 	Description
+//	----		------- 	-----------
+//
+///////////////////////////////////////////////////////////////////////////////
+
+#include "CMrcpSendSignal.h"
+#include "AMrcpSignaling.h"
+
+
+namespace MrcpV2RefLib
+{
+////////////////////////////////////////////////////////////////////////// 
+//
+// Description - Constructor
+// Input - pointer to signal object
+//         
+// Output - None
+//          
+///////////////////////////////////////////////////////////////////////////
+CMrcpSendSignal::CMrcpSendSignal(AMrcpSignaling* a_signalObj)
+	:  MrcpTasks( a_signalObj)
+{
+	m_messageBuffer.erase();
+}
+////////////////////////////////////////////////////////////////////////// 
+//
+// Description - Destructor
+// Input - None
+//         
+// Output - 
+//          
+///////////////////////////////////////////////////////////////////////////
+CMrcpSendSignal::~CMrcpSendSignal()
+{
+
+}
+////////////////////////////////////////////////////////////////////////// 
+//
+// Description - Execute
+// Input - None
+//         
+// Output - 
+//         calls PrimSendSignal to send signal message 
+///////////////////////////////////////////////////////////////////////////
+void CMrcpSendSignal::Execute()
+{
+	m_signalObj->PrimSendSignal( MessageBuffer());
+}
+
+} //end namespace
+

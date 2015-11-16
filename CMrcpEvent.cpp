@@ -1,0 +1,88 @@
+
+///////////////////////////////////////////////////////////////////////////////
+//	File Name:		CMrcpEvent.cpp
+//
+//	Description:	CMrcpEvent class implementation
+//					Event implementation
+//
+//	Declared in this file:
+//		none
+//
+//	Implemented in this file:
+//		CMrcpEvent::CMrcpEvent()
+//		CMrcpEvent::~CMrcpEvent()
+//		void CMrcpEvent::Execute()
+//		int CMrcpEvent::HandleEvent()
+//
+///////////////////////////////////////////////////////////////////////////////
+//	Revisions:
+//	Date		Initial 	Description
+//	----		------- 	-----------
+//
+///////////////////////////////////////////////////////////////////////////////
+
+#include "CMrcpEvent.h"
+#include "AMrcpEventHandler.h"
+
+namespace MrcpV2RefLib
+{
+////////////////////////////////////////////////////////////////////////// 
+//
+// Description - Constructor
+// Input - None
+//         
+// Output - None
+//          
+///////////////////////////////////////////////////////////////////////////
+CMrcpEvent::CMrcpEvent()
+{
+	EventHandler(NULL);
+	EventID(0);
+	ClassName("CMrcpEvent");
+}
+////////////////////////////////////////////////////////////////////////// 
+//
+// Description - Destructor
+// Input - None
+//         
+// Output - None
+//          
+///////////////////////////////////////////////////////////////////////////
+CMrcpEvent::~CMrcpEvent()
+{
+}
+
+////////////////////////////////////////////////////////////////////////// 
+//
+// Description - Execute
+// Input - None
+//         
+// Output - None
+//          
+///////////////////////////////////////////////////////////////////////////
+void CMrcpEvent::Execute()
+{
+	if (m_eventObserver)
+		m_eventObserver->HandleEvent(this);
+	else
+		CLogger::Instance()->Log(LOG_LEVEL_WARNING, *this, "Observer is NULL");	
+}
+////////////////////////////////////////////////////////////////////////// 
+//
+// Description - HandleEvent
+// Input - None
+//         
+// Output - success
+//          
+///////////////////////////////////////////////////////////////////////////
+int CMrcpEvent::HandleEvent()
+{
+	if (m_eventObserver)
+		m_eventObserver->HandleEvent(this);
+	else
+		CLogger::Instance()->Log(LOG_LEVEL_WARNING, *this, "Observer is NULL");	
+
+	return MrcpSuccess;
+}
+} //end namespace
+
